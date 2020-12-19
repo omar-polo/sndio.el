@@ -4,7 +4,7 @@
 
 #+CAPTION: sndio.el screenshot
 #+NAME: screenshot.png
-[[file:screenshot.png][sndio.el screenshot]]
+[[file:screenshot.png]]
 
 Activate it with =M-x sndio RET=, then the following bindings will be available:
 

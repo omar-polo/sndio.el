@@ -1,0 +1,15 @@
+#+TITLE: =sndio.el=
+
+=sndio.el= is a major mode to interact with =sndio(8)=.
+
+[[file:screenshot.png][sndio.el screenshot]]
+
+Activate it with =M-x sndio RET=, then the following bindings will be available:
+
+| =d= | sndio-decrease |
+| =g= | sndio-update   |
+| =i= | sndio-increase |
+| =m= | sndio-mute     |
+| =t= | sndio-toggle   |
+| =n= | forward-line   |
+| =p= | previous-line  |

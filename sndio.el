@@ -32,7 +32,6 @@
   (define-key sndio-mode-map (kbd "m") #'sndio-mute)
   (define-key sndio-mode-map (kbd "t") #'sndio-toggle)
   (define-key sndio-mode-map (kbd "g") #'sndio-update)
-  (define-key sndio-mode-map (kbd "d") #'kill-buffer)
 
   (buffer-disable-undo)
 

@@ -2,9 +2,9 @@
 
 =sndio.el= is a major mode to interact with =sndio(8)=.
 
-#+CAPTION: sndio.el screenshot
-#+NAME: screenshot.png
-[[file:screenshot.png]]
+#+CAPTION: sndio.el screencast
+#+NAME: screencast.png
+[[file:screencast.gif]]
 
 Activate it with =M-x sndio RET=, then the following bindings will be available:
 

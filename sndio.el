@@ -63,6 +63,7 @@
 (defun sndio--update-value (x)
   "Update the value for the input/output at point setting it to X."
   (save-excursion
+    (beginning-of-line)
     (search-forward "=")
     (let ((inhibit-read-only t))
       (delete-region (point) (line-end-position))

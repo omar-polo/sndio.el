@@ -5,7 +5,7 @@
 ;; Author: Omar Polo <op@omarpolo.com>
 ;; Version: 1.0
 ;; Keywords: multimedia
-;; URL: https://git.omarpolo.com/sndioctl.el
+;; URL: https://git.omarpolo.com/sndio.el
 
 ;;; Commentary:
 
@@ -14,42 +14,43 @@
 
 ;;; Code:
 
-(require 'cl-lib)
+(eval-when-compile (require 'subr-x))
 
-(defvar sndioctl-cmd "sndioctl"
+(defvar sndio-sndioctl-cmd "sndioctl"
   "Path to the sndioctl executable.")
 
 (defvar sndio-step 0.02
   "Step for `sndio-increase' and `sndio-decrease'.")
 
+(defvar sndio-mode-map
+  (let ((m (make-sparse-keymap)))
+    (define-key m (kbd "n") #'forward-line)
+    (define-key m (kbd "p") #'previous-line)
+    (define-key m (kbd "i") #'sndio-increase)
+    (define-key m (kbd "d") #'sndio-decrease)
+    (define-key m (kbd "m") #'sndio-mute)
+    (define-key m (kbd "t") #'sndio-toggle)
+    (define-key m (kbd "g") #'sndio-update)
+    m)
+  "Keymap for sndio.")
+
 (define-derived-mode sndio-mode special-mode "sndio"
   "Major mode for sndio interaction."
-
-  (define-key sndio-mode-map (kbd "n") #'forward-line)
-  (define-key sndio-mode-map (kbd "p") #'previous-line)
-  (define-key sndio-mode-map (kbd "i") #'sndio-increase)
-  (define-key sndio-mode-map (kbd "d") #'sndio-decrease)
-  (define-key sndio-mode-map (kbd "m") #'sndio-mute)
-  (define-key sndio-mode-map (kbd "t") #'sndio-toggle)
-  (define-key sndio-mode-map (kbd "g") #'sndio-update)
-
   (buffer-disable-undo)
-
   (sndio-update))
 
 (defun sndio-update ()
   "Update the current sndio buffer."
   (interactive)
   (with-current-buffer "*sndio*"
-    (save-excursion
-      (let ((inhibit-read-only t))
-        (erase-buffer)
-        (process-file sndioctl-cmd nil (current-buffer) nil)))))
+    (let ((inhibit-read-only t))
+      (erase-buffer)
+      (process-file sndio-sndioctl-cmd nil (current-buffer) nil))))
 
 (defun sndio--run (&rest args)
-  "Run `sndioctl-cmd' with ARGS yielding its output."
+  "Run `sndio-sndioctl-cmd' with ARGS yielding its output."
   (with-temp-buffer
-    (when (zerop (apply #'process-file sndioctl-cmd nil t nil args))
+    (when (zerop (apply #'process-file sndio-sndioctl-cmd nil t nil args))
       (buffer-string))))
 
 (defun sndio--current-io ()
@@ -105,4 +106,4 @@
   (sndio-mode))
 
 (provide 'sndio)
-;;; sndio.el ends here.
+;;; sndio.el ends here

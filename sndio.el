@@ -45,7 +45,8 @@
   (with-current-buffer "*sndio*"
     (let ((inhibit-read-only t))
       (erase-buffer)
-      (process-file sndio-sndioctl-cmd nil (current-buffer) nil))))
+      (process-file sndio-sndioctl-cmd nil (current-buffer) nil)
+      (goto-char (point-min)))))
 
 (defun sndio--run (&rest args)
   "Run `sndio-sndioctl-cmd' with ARGS yielding its output."

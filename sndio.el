@@ -46,7 +46,7 @@
 (defun sndio-update ()
   "Update the current sndio buffer."
   (interactive)
-  (with-current-buffer "*sndio*"
+  (when (derived-mode-p 'sndio-mode)
     (let ((inhibit-read-only t))
       (erase-buffer)
       (process-file sndio-sndioctl-cmd nil (current-buffer) nil)

@@ -15,3 +15,6 @@ Activate it with =M-x sndio RET=, then the following bindings will be available:
 | =t= | sndio-toggle   |
 | =n= | forward-line   |
 | =p= | previous-line  |
+
+or call =M-x sndio-win-open RET= to open a popup window to quickly
+change the volume and then =q= to quit.

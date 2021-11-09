@@ -119,6 +119,7 @@ Call `delete-window' when the sndio popup window is open or
   (switch-to-buffer "*sndio*")
   (sndio-mode))
 
+;;;###autoload
 (defun sndio-win-open ()
   "Open an sndio window at the bottom of the frame for quick editing."
   (interactive)

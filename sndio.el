@@ -22,6 +22,9 @@
 (defvar sndio-step 0.02
   "Step for `sndio-increase' and `sndio-decrease'.")
 
+(defvar sndio--window nil
+  "The sndio window.")
+
 (defvar sndio-mode-map
   (let ((m (make-sparse-keymap)))
     (define-key m (kbd "n") #'forward-line)
@@ -31,6 +34,7 @@
     (define-key m (kbd "m") #'sndio-mute)
     (define-key m (kbd "t") #'sndio-toggle)
     (define-key m (kbd "g") #'sndio-update)
+    (define-key m (kbd "q") #'sndio-quit)
     m)
   "Keymap for sndio.")
 
@@ -99,12 +103,47 @@
     (when-let (val (sndio--run "-n" (concat x "=!")))
       (sndio--update-value val))))
 
+(defun sndio-quit ()
+  "Quits sndio.
+Call `delete-window' when the sndio popup window is open or
+`quit-window' otherwise."
+  (interactive)
+  (if (window-live-p sndio--window)
+      (delete-window)
+    (quit-window)))
+
 ;;;###autoload
 (defun sndio ()
   "Launch sndio."
   (interactive)
   (switch-to-buffer "*sndio*")
   (sndio-mode))
+
+(defun sndio-win-open ()
+  "Open an sndio window at the bottom of the frame for quick editing."
+  (interactive)
+  (unless (window-live-p sndio--window)
+    (setq sndio--window
+          (select-window
+           (let ((ignore-window-parameters t))
+             (split-window (frame-root-window)
+                           -1
+                           'below))
+           'norecord))
+    (switch-to-buffer (get-buffer-create "*sndio-quick*")
+                      'norecord)
+    (if (derived-mode-p 'sndio-mode)
+        (sndio-update)
+      (sndio-mode))
+    (setq mode-line-format nil
+          header-line-format nil
+          tab-line-format nil)
+    (set-window-hscroll sndio--window 0)
+    (set-window-dedicated-p sndio--window t)
+    (select-window sndio--window 'norecord)
+    (let ((window-resize-pixelwise t)
+          (window-size-fixed))
+      (fit-window-to-buffer sndio--window nil nil 1))))
 
 (provide 'sndio)
 ;;; sndio.el ends here

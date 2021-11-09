@@ -135,6 +135,7 @@ Call `delete-window' when the sndio popup window is open or
     (if (derived-mode-p 'sndio-mode)
         (sndio-update)
       (sndio-mode))
+    (hl-line-mode +1)
     (setq mode-line-format nil
           header-line-format nil
           tab-line-format nil)

@@ -28,7 +28,8 @@
 
 ;;; Code:
 
-(eval-when-compile (require 'subr-x))
+(eval-when-compile
+  (require 'subr-x))
 
 (defvar sndio-sndioctl-cmd "sndioctl"
   "Path to the sndioctl executable.")

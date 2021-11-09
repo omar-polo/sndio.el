@@ -31,11 +31,17 @@
 (eval-when-compile
   (require 'subr-x))
 
-(defvar sndio-sndioctl-cmd "sndioctl"
-  "Path to the sndioctl executable.")
+(defgroup sndio nil
+  "Sndio."
+  :group 'sndio)
 
-(defvar sndio-step 0.02
-  "Step for `sndio-increase' and `sndio-decrease'.")
+(defcustom sndio-sndioctl-cmd "sndioctl"
+  "Path to the sndioctl executable."
+  :type 'string)
+
+(defcustom sndio-step 0.02
+  "Step for `sndio-increase' and `sndio-decrease'."
+  :type 'integer)
 
 (defvar sndio--window nil
   "The sndio window.")

@@ -1,6 +1,6 @@
 ;;; sndio.el --- Interact with sndio(8)  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2020, 2021 Omar Polo
+;; Copyright (C) 2020, 2021  Free Software Foundation, Inc.
 
 ;; Author: Omar Polo <op@omarpolo.com>
 ;; Version: 1.0

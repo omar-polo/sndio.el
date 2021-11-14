@@ -67,6 +67,9 @@
 (defun sndio-update ()
   "Update the current sndio buffer."
   (interactive)
+  (unless (executable-find sndio-sndioctl-cmd)
+    (user-error "Can't find executable %s, is sndio installed?"
+                sndio-sndioctl-cmd))
   (when (derived-mode-p 'sndio-mode)
     (let ((inhibit-read-only t))
       (erase-buffer)
